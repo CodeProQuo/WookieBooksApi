@@ -4,14 +4,10 @@ using WookieBooks.API.Controllers;
 using WookieBooks.API.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using Moq;
-using WookieBooks.API.Domain.Services;
-using WookieBooks.API.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using WookieBooks.API.Persistence.Contexts;
 using WookieBooks.API.Persistence.Repositories;
 using WookieBooks.API.Services;
-using System.Threading.Tasks;
 using System.Linq;
 
 namespace WookieBooks.API.Test
@@ -30,7 +26,6 @@ namespace WookieBooks.API.Test
 
             var bookRepository = new BookRepository(database);
             var bookService = new BookService(bookRepository);
-            var mockthis = new Mock<IBookService>();
             _booksController = new BooksController(bookService);
         }
 
@@ -73,6 +68,7 @@ namespace WookieBooks.API.Test
             int bookId = 100;
             var result = _booksController.DeleteBook(bookId).Result.Result as OkObjectResult;
             var book = result.Value as Book;
+
             // Assert
             Assert.Equal(bookId, book.Id);
             Assert.Equal(200, result.StatusCode);
@@ -93,7 +89,7 @@ namespace WookieBooks.API.Test
         [Fact]
         public void PostTest_CreatesBook()
         {
-            // Act
+            // Arrange
             var book = new Book
             {
                 Id = 130,
@@ -104,6 +100,8 @@ namespace WookieBooks.API.Test
                 Price = 101.01
 
             };
+
+            // Act
             var result = _booksController.CreateBook(book).Result.Result as OkObjectResult;
 
             // Assert
@@ -114,7 +112,7 @@ namespace WookieBooks.API.Test
         [Fact]
         public void PostTest_CreatesBook_Fails()
         {
-            // Act
+            // Arrange
             var book = new Book
             {
                 Id = 100,
@@ -125,6 +123,8 @@ namespace WookieBooks.API.Test
                 Price = 101.01
 
             };
+
+            // Act
             var result = _booksController.CreateBook(book).Result.Result as BadRequestObjectResult;
 
             // Assert
@@ -135,7 +135,7 @@ namespace WookieBooks.API.Test
         [Fact]
         public void PostTest_CreatesBook_FailsDueToInvalid()
         {
-            // Act
+            // Arrange
             var book = new Book
             {
                 Id = 150,
@@ -157,7 +157,7 @@ namespace WookieBooks.API.Test
         [Fact]
         public void PutTest_UpdatesBook()
         {
-            // Act
+            // Arrange
             var bookId = 100;
             var book = new Book
             {
@@ -169,6 +169,8 @@ namespace WookieBooks.API.Test
                 Price = 101.01
 
             };
+
+            // Act
             var result = _booksController.UpdateBook(bookId, book).Result.Result as OkObjectResult;
             var getBook = _booksController.GetBookById(bookId).Result;
 
@@ -181,7 +183,7 @@ namespace WookieBooks.API.Test
         [Fact]
         public void PutTest_UpdatesBook_Fails()
         {
-            // Act
+            // Arrange
             var bookId = 130;
             var book = new Book
             {
@@ -193,6 +195,8 @@ namespace WookieBooks.API.Test
                 Price = 101.01
 
             };
+
+            // Act
             var result = _booksController.UpdateBook(bookId, book).Result.Result as BadRequestObjectResult;
 
             // Assert
@@ -203,7 +207,7 @@ namespace WookieBooks.API.Test
         [Fact]
         public void PutTest_UpdatesBook_FailsDueToIdMismatch()
         {
-            // Act
+            // Arrange
             var bookId = 120;
             var book = new Book
             {
@@ -215,6 +219,8 @@ namespace WookieBooks.API.Test
                 Price = 101.01
 
             };
+
+            // Act
             var result = _booksController.UpdateBook(bookId, book).Result.Result as BadRequestObjectResult;
 
             // Assert

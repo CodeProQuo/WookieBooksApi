@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "fec1c2d2-68b7-4266-be52-6d89cabf840e",
+		"name": "WookieBooks Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:44392/api/books",
+				"description": "Returns a collection of all the books in the database"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:44392/api/books/100",
+				"description": "Finds a book object by a certain id and if it exists returns it."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book By Id Fail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:44392/api/books/200",
+				"description": "Attempts to get a book from the database that doesn't exist"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 110,\r\n    \"title\" : \"A Title\",\r\n    \"description\" : \"A Description\",\r\n    \"author\" : \"An Author\",\r\n    \"coverImage\" : \"https://www.animage.com\",\r\n    \"price\" : 100.10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:44392/api/books",
+				"description": "Creates a new Book in the database"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book Fail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 100,\r\n    \"title\" : \"A Title\",\r\n    \"description\" : \"A Description\",\r\n    \"author\" : \"An Author\",\r\n    \"coverImage\" : \"https://www.animage.com\",\r\n    \"price\" : 100.10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:44392/api/books",
+				"description": "Attempts to create a new Bok in the Database but fails because the Id already exists."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 110,\r\n    \"description\" : \"A Description\",\r\n    \"coverImage\" : \"https://www.animage.com\",\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:44392/api/books",
+				"description": "Attempts to create a new Book in the Database but fails due to missing Book properties."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 100,\r\n    \"title\" : \"A Title\",\r\n    \"description\" : \"A Description\",\r\n    \"author\" : \"An Author\",\r\n    \"coverImage\" : \"https://www.animage.com\",\r\n    \"price\" : 100.10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:44392/api/books/100",
+				"description": "Updates an existing id in the database with a new books information."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book Fail Due to Id Mismatch",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 170,\r\n    \"title\" : \"A Title\",\r\n    \"description\" : \"A Description\",\r\n    \"author\" : \"An Author\",\r\n    \"coverImage\" : \"https://www.animage.com\",\r\n    \"price\" : 100.10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:44392/api/books/100",
+				"description": "Attempts to update an existing Book but fails because the Id suplied is different from the Book's Id property."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book Fail",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 170,\r\n    \"title\" : \"A Title\",\r\n    \"description\" : \"A Description\",\r\n    \"author\" : \"An Author\",\r\n    \"coverImage\" : \"https://www.animage.com\",\r\n    \"price\" : 100.10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:44392/api/books/170",
+				"description": "Attempts to update book information for an id that doesn't exist."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:44392/api/books/100",
+				"description": "Deletes a book from the database using the supplied id"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book Fail",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:44392/api/books/180",
+				"description": "Attempts to delete a book from the database that doesn't exist."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
